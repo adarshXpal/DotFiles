@@ -125,6 +125,7 @@ return {
     opts = {
       ensure_installed = {
         "bash",
+        "ejs",
         "html",
         "javascript",
         "json",
@@ -137,6 +138,7 @@ return {
         "tsx",
         "typescript",
         "vim",
+        "tailwindcss",
         "yaml",
         "cpp",
         "kotlin",
@@ -156,6 +158,13 @@ return {
         "typescript",
       })
     end,
+  },
+  {
+    "ibhagwan/fzf-lua",
+    dependencies = { "vijaymarupudi/nvim-fzf" }, -- Optional but recommended
+    opts = {
+      fzf_bin = "/home/linuxbrew/.linuxbrew/bin/fzf", -- Full path to correct binary
+    },
   },
 
   -- the opts function can also be used to change the default opts:

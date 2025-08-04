@@ -1,17 +1,35 @@
+-- ~/.config/nvim/lua/plugins/cmp.lua
 return {
-  -- LuaSnip plugin
-  "L3MON4D3/LuaSnip",
-  config = function()
-    require("luasnip.loaders.from_vscode").lazy_load() -- Load VSCode-style snippets
-  end,
-
-  -- nvim-cmp for completion
   "hrsh7th/nvim-cmp",
+  opts = function(_, opts)
+    local cmp = require("cmp")
+    local winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None"
 
-  -- nvim-cmp snippet source
-  "hrsh7th/cmp-nvim-lua",
-  "saadparwaiz1/cmp_luasnip",
+    opts.window = {
+      completion = cmp.config.window.bordered({
+        winhighlight = winhighlight,
+        col_offset = -3,
+        side_padding = 0,
+        scrollbar = false,
+      }),
+      documentation = cmp.config.window.bordered({
+        winhighlight = winhighlight,
+      }),
+    }
 
-  -- Friendly Snippets
-  "rafamadriz/friendly-snippets",
+    opts.formatting = {
+      fields = { "abbr", "kind", "menu" },
+      format = function(entry, vim_item)
+        vim_item.menu = ({
+          buffer = "[Buf]",
+          nvim_lsp = "[LSP]",
+          luasnip = "[Snip]",
+          path = "[Path]",
+        })[entry.source.name]
+        return vim_item
+      end,
+    }
+
+    return opts
+  end,
 }
